@@ -1,0 +1,24 @@
+1. Bài toán cơ bản
+
+Cho dãy n số nguyên arr được sắp xếp theo thứ tự tăng dần và một số nguyên target. Hỏi có tồn tại 2
+phần tử trong mảng sao cho tổng của chúng bằng target. Nếu tồn tại trả về chỉ số vị trí 2 phần tử đó,
+nếu không tồn tại trả về [-1, -1].
+Ví dụ:
+Input: arr = [1, 2, 4, 7, 9, 10], target = 6
+Output: [1, 2]
+
+Giới hạn dữ liệu:
+● 1 <= nums.length <= 10^5
+● -10^9 <= nums[i], target <= 10^9
+
+def twoSum(self, numbers: List[int], target: int) -> List[int]:
+    right = int(len(numbers))-1
+    left = 0
+    while left<right:
+        if numbers[left] + numbers[right] == target:
+            return [left+1, right+1]
+            break
+        elif numbers[left] + numbers[right] > target:
+            right -= 1
+        elif numbers[left] + numbers[right] < target:
+            left += 1
