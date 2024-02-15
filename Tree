@@ -11,3 +11,20 @@ def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -
     if l and r:
         return root
     return l or r
+
+
+#https://leetcode.com/problems/path-sum/
+def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+    ans = False
+    if root is None:
+        return False
+    def dfs(node, total):
+        nonlocal ans
+        if node is None:
+            return
+        if node.left is None and node.right is None and total+node.val == targetSum:
+            ans = True
+        dfs(node.left, total + node.val)
+        dfs(node.right, total + node.val)
+    dfs(root,0)
+    return ans
