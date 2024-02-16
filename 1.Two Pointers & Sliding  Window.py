@@ -11,6 +11,7 @@
 # ● 1 <= nums.length <= 10^5
 # ● -10^9 <= nums[i], target <= 10^9
 
+
 #ALSO TEMPLATE FOR 2 POINTERS
 def twoSum(self, numbers: List[int], target: int) -> List[int]:
     right = int(len(numbers))-1
