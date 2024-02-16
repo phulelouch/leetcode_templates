@@ -8,6 +8,7 @@ def bfs(root: TreeNode) -> None:
         for i in range(size):
             node = q.popleft()
             print(str(node.val), end = " ")
+            #PROCESS HERE
             if node.left: 
                 q.append(node.left)
             if node.right: 
@@ -66,3 +67,30 @@ def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
         dfs(node.right, total + node.val)
     dfs(root,0)
     return ans
+
+
+# 102. Binary Tree Level Order Traversal
+# Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+
+
+def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root: return
+        q = deque([root])
+        ans = []
+        i=0
+        
+        while q:
+            size = len(q)
+            temp = []
+            for i in range(size):
+                node = q.popleft()
+                # print(str(node.val), end = " ")
+                temp.append(node.val)
+                if node.left: 
+                    q.append(node.left)
+                if node.right: 
+                    q.append(node.right)
+            ans.append(temp)
+            # print()
+        return ans
+
