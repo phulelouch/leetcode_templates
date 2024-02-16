@@ -11,61 +11,61 @@
 # ● 1 <= nums.length <= 10^5
 # ● -10^9 <= nums[i], target <= 10^9
 
-class Solution:
-    def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        right = int(len(numbers))-1
-        left = 0
-        while left<right:
-            if numbers[left] + numbers[right] == target:
-                return [left+1, right+1]
-                break
-            elif numbers[left] + numbers[right] > target:
-                right -= 1
-            elif numbers[left] + numbers[right] < target:
+#ALSO TEMPLATE FOR 2 POINTERS
+def twoSum(self, numbers: List[int], target: int) -> List[int]:
+    right = int(len(numbers))-1
+    left = 0
+    while left<right:
+        if numbers[left] + numbers[right] == target:
+            return [left+1, right+1]
+            break
+        elif numbers[left] + numbers[right] > target:
+            right -= 1
+        elif numbers[left] + numbers[right] < target:
+            left += 1
+
+
+#TEMPLATE FOR 3 POINTERS
+def threeSum(self, nums: List[int]) -> List[List[int]]:
+    nums.sort()
+    result = []
+    for i in range(0,len(nums)-2):
+        if i>0 and nums[i] == nums[i-1]:
+            continue
+        left = i+1
+        right = len(nums)-1
+        while left < right:
+            total = nums[i] + nums[left] + nums[right]
+            if total > 0:
+                right -=1
+            elif total < 0:
                 left += 1
-
-
-class Solution:
-    def threeSum(self, nums: List[int]) -> List[List[int]]:
-        nums.sort()
-        result = []
-        for i in range(0,len(nums)-2):
-            if i>0 and nums[i] == nums[i-1]:
-                continue
-            left = i+1
-            right = len(nums)-1
-            while left < right:
-                total = nums[i] + nums[left] + nums[right]
-                if total > 0:
+            else:
+                triplet = [ nums[i], nums[left], nums[right]]
+                result.append(triplet)
+                while left < right and nums[left] == triplet[1]:
+                    left +=1
+                while left < right and nums[right] == triplet[2]:
                     right -=1
-                elif total < 0:
-                    left += 1
-                else:
-                    triplet = [ nums[i], nums[left], nums[right]]
-                    result.append(triplet)
-                    while left < right and nums[left] == triplet[1]:
-                        left +=1
-                    while left < right and nums[right] == triplet[2]:
-                        right -=1
-        return result
+    return result
     
 
-class Solution:
-    def triangleNumber(self, nums: List[int]) -> int:
-        nums.sort()
-        result = 0
-        n = len(nums)
-        for i in reversed(range(n)):
-            left = 0
-            right = i-1
-            while left < right:
-                total = nums[left] + nums[right]
-                if total>nums[i]:
-                    result += right -left
-                    right -=1
-                else:
-                    left +=1
-        return result
+
+def triangleNumber(self, nums: List[int]) -> int:
+    nums.sort()
+    result = 0
+    n = len(nums)
+    for i in reversed(range(n)):
+        left = 0
+        right = i-1
+        while left < right:
+            total = nums[left] + nums[right]
+            if total>nums[i]:
+                result += right -left
+                right -=1
+            else:
+                left +=1
+    return result
     
 
 def judgeSquareSum(self, c: int) -> bool:
