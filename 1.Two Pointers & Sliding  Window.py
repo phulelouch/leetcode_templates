@@ -145,7 +145,7 @@ def slidingWindowTemplate(nums: List[int], k: int) -> int:  # Change return type
 
 #SLIDING WINDOW DYNAMIC SIZE
 #https://leetcode.com/problems/longest-substring-without-repeating-characters/
-def lengthOfLongestSubstring(self, nums: str) -> int:
+def lengthOfLongestSubstringWithoutRepeating(self, nums: str) -> int:
     length = 0
     L = 0
     window=set()
@@ -213,4 +213,44 @@ def minSubArrayLen(self, target: int, nums: List[int]) -> int:
             l += 1
 
     return min_len if min_len != 999999999 else 0
+
+
+#https://leetcode.com/problems/minimum-window-substring/
+def minWindow(self, s: str, t: str) -> str:
+    if len(s)<len(t):
+        return ""
+    if s==t:
+        return s
+    if len(t)==1:
+        if t in s:
+            return t
+        else:
+            return ""
+    
+        
+    count = {char: 0 for char in t}
+    true_count = Counter(t)
+    length = 999999999
+    L = 0
+    minL, minR = 0,0
+    def check(c, tc):
+        return all(c.get(key) > 0 and c.get(key) >= tc.get(key) for key in c.keys())
+
+
+    for R in range(0, len(s)):
+        if s[R] in t:
+            count[s[R]] = count.get(s[R],0) +1
+        while check(count, true_count):
+            if length > R-L+1:
+                length = R-L+1
+                minL, minR = L,R
+            if count.get(s[L]):
+                    count[s[L]] = count.get(s[L]) - 1
+            L+=1
+        
+        
+    if minL ==0 and minR==0 and length == 999999999:
+        return ""
+
+    return s[minL:minR+1] 
 
