@@ -83,7 +83,122 @@ def judgeSquareSum(self, c: int) -> bool:
 
     return False
 
-#SLIDING WINDOW
+#SLIDING WINDOW FIX SIZE
+#https://leetcode.com/problems/contains-duplicate-ii/
+
+def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+    n=len(nums)
+    L=0
+    window=set()
+
+    for R in range(n):
+        if R-L > k:
+            window.remove(nums[L])
+            L+=1
+        if nums[R] in window:
+            return True
+
+        window.add(nums[R])
+    
+    return False
+
+
+#https://leetcode.com/problems/number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold/
+def numOfSubarrays(self, nums: List[int], k: int, threshold: int) -> int:
+        n=len(nums)
+        L=0
+        count=0
+        window_sum=0
+        
+        for R in range(n):
+            window_sum += nums[R]
+            if R - L + 1 == k:
+                if window_sum / k >= threshold:
+                    count += 1
+                window_sum -= nums[L]
+                L += 1
+        
+        return count
+
+def slidingWindowTemplate(nums: List[int], k: int) -> int:  # Change return type based on the problem
+    n = len(nums)
+    L = 0  # Left edge of the sliding window
+    result = 0  # Change based on what you need to compute
+    window_computation = 0  # This could be a sum, a product, a set, etc., based on the problem
+
+    for R in range(n):  # R is the right edge of the sliding window
+        # Update window_computation with the new element added to the window
+        window_computation += ...  # Change this based on the problem
+
+        # Check if the window is of the desired size k
+        if R - L + 1 == k:
+            # Compute result using window_computation
+            # This could involve checking a condition or updating a maximum/minimum, etc.
+            result += ...  # Change this based on the problem
+
+            # Remove the element at the left edge of the window from window_computation
+            window_computation -= nums[L]  # Change this based on the problem
+            L += 1  # Slide the window to the right by one element
+
+    return result
+
+
+#SLIDING WINDOW DYNAMIC SIZE
+#https://leetcode.com/problems/longest-substring-without-repeating-characters/
+def lengthOfLongestSubstring(self, nums: str) -> int:
+    length = 0
+    L = 0
+    window=set()
+
+    for R in range(len(nums)):
+        
+        while nums[R] in window:
+            window.remove(nums[L])
+            print(f"Remove {L}")
+            L += 1
+        length = max(length, R - L + 1)
+        window.add(nums[R])
+    return length
+
+def lengthOfLongestRepeatingSubstring(s: str) -> int:
+    if not s:
+        return 0
+
+    length = 0
+    L = 0
+
+    for R in range(1, len(s)):
+        # If the current character is different from the previous one,
+        # update the left pointer and calculate the length.
+        if s[R] != s[R - 1]:
+            L = R
+        length = max(length, R - L + 1)
+
+    return length
+
+#https://leetcode.com/problems/longest-repeating-character-replacement/
+def characterReplacement(self, s: str, k: int) -> int:
+            if not s:
+                return 0
+
+            length = 0
+            L = 0
+            max_f = 0
+            count = {}
+
+            for R in range(0, len(s)):
+                count[s[R]] = count.get(s[R],0) +1
+                max_f = max(max_f, count[s[R]])
+                if R-L+1 - max_f > k:
+                    count[s[L]] -=1
+                    L +=1
+                   
+                length = max(length, R - L + 1)
+
+            return length
+
+
+#https://leetcode.com/problems/minimum-size-subarray-sum/
 def minSubArrayLen(self, target: int, nums: List[int]) -> int:
     l = 0
     min_len = 999999999
@@ -98,3 +213,4 @@ def minSubArrayLen(self, target: int, nums: List[int]) -> int:
             l += 1
 
     return min_len if min_len != 999999999 else 0
+
