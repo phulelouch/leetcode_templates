@@ -83,6 +83,40 @@ def judgeSquareSum(self, c: int) -> bool:
 
     return False
 
+#https://leetcode.com/problems/container-with-most-water/
+def maxArea(self, height: List[int]) -> int:
+    n = len(height)
+    max_water = 0
+    L= 0
+    R = (n-1)
+    Lismin = True
+    nobigger = False
+    while L<R:
+        
+        if height[L] <= height [R]:
+            Lismin = True
+            min_val = height[L]
+        else:
+            min_val = height[R]
+            Lismin = False
+
+        max_water = max(max_water, min_val*(R-L))
+        #print(L,R,max_water)
+
+        if Lismin:
+            original_height = height[L]
+            L += 1
+            while L < R and height[L] <= original_height:
+                L += 1
+        
+        else:
+            original_height = height[R]
+            R -= 1
+            while L < R and height[R] <= original_height:
+                R -= 1
+        
+    return max_water
+
 #SLIDING WINDOW FIX SIZE
 #https://leetcode.com/problems/contains-duplicate-ii/
 
