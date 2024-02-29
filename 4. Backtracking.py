@@ -42,3 +42,27 @@ def helper2(i, nums, curSet, subsets):
     while i + 1 < len(nums) and nums[i] == nums[i + 1]:
         i += 1
     helper2(i + 1, nums, curSet, subsets)
+
+
+
+
+
+def subsetsWithk(self, nums: List[int], k: int) -> List[List[int]]:
+    combs = []
+    n = len(nums)
+    
+    def helper2(i, curComb, combs, n, k):
+        if len(curComb) == k:
+            combs.append(curComb.copy())
+            return
+        if i > n:
+            return
+    
+        for j in range(i, n):
+            curComb.append(nums[j])
+            helper2(j + 1, curComb, combs, n, k)
+            curComb.pop()
+    
+    
+    helper2(0, [], combs, n, k)
+    return combs
