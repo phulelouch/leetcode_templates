@@ -73,6 +73,20 @@ def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) ->
        
         return head.next
 
+#https://leetcode.com/problems/number-of-students-unable-to-eat-lunch/
+def countStudents(self, students: List[int], sandwiches: List[int]) -> int:
+    count = 0
+    while len(students) > count:
+        if students[0] == sandwiches[0]:
+            sandwiches.pop(0)
+            count = 0
+        else:
+            students.append(students[0])
+            count+=1
+
+        students.pop(0)
+    return len(students)
+
 
 # Find the middle of a linked list with two pointers.
 # Time: O(n), Space: O(1)
