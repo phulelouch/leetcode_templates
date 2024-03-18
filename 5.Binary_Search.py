@@ -13,6 +13,33 @@ class Solution:
             else:
                 l = m +1
         return -1
+
+
+class Solution:
+        def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+            if not matrix:
+                return False
+            
+            m, n = len(matrix), len(matrix[0])
+            left, right = 0, m * n - 1
+
+            while left <= right:
+                mid = (left + right) // 2
+                
+                mid_row, mid_col = divmod(mid, n)
+                print(mid, n)
+                print(mid_row, mid_col)
+
+                if matrix[mid_row][mid_col] == target:
+                    return True
+                elif matrix[mid_row][mid_col] < target:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+
+            return False
+
+        
     
 # Binary search with situation:
 #Step 1: make an not efficency method with for that advance left:
