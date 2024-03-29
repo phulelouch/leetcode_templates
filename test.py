@@ -71,5 +71,59 @@ function indexEqualsValueSearch(arr):
     return -1
 
 
+
+
+ans = float('inf')  
+def get_cheapest_cost(root):
   
+  if root.children == []: # sepcial situtation
+    return root.cost
+  
+  
+  def dfs(node, total):
+    global ans
+    
+    if node.children == []: #based case for dfs
+      ans = min(ans, total) # total = 0
+    
+    for child in node.children: # 
+      dfs(child, total+child.cost)
+      
+      
+  dfs(root, root.cost)
+  return ans
+
+my github phulelouch, cheers
+shivam0rawat0 , cheeers
+      
+    
+    
+    
+########################################## 
+# Use the helper code below to implement #
+# and test your function above           #
+##########################################
+
+# A node 
+class Node:
+
+  # Constructor to create a new node
+  def __init__(self, cost):
+    self.cost = cost
+    self.children = []
+    self.parent = None
+    
+root = Node(0)
+child11 = Node(1)
+child12 = Node(5)
+child13 = Node(6)
+
+child21 = Node(1)
+child11.children.append(child21)
+
+root.children.append(child11)
+root.children.append(child12)
+root.children.append(child13)
+
+print(get_cheapest_cost(root))
   
