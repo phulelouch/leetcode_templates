@@ -40,17 +40,22 @@ def postorder(root: TreeNode) -> None:
 
 #https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/
 #use DFS
-def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-    if not root or root == p or root == q:
-        return root
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if not root:
+            return None #invalid case, so if that branch return none we know it is not have p or q
+        
+        if root == p or root == q:
+            return root #valid case, if that branch return a value we know that it have either p or q
 
-    l = self.lowestCommonAncestor(root.left, p, q)
-    r = self.lowestCommonAncestor(root.right, p, q)
+        l = self.lowestCommonAncestor(root.left, p, q)
+        r = self.lowestCommonAncestor(root.right, p, q)
 
-    if l and r:
-        return root
-    return l or r
+        # if both left and right subtrees return a valid node, the current node is the lowest common ancestor
+        if l and r:
+            return root
 
+        return l or r # if 1 of them valid that mean it have both, this is the example 2 case
 
 #https://leetcode.com/problems/path-sum/
 def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
