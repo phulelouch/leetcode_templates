@@ -126,4 +126,67 @@ root.children.append(child12)
 root.children.append(child13)
 
 print(get_cheapest_cost(root))
+
+
+
+
+
+# QUESTION
+# Time Planner
+# Implement a function meetingPlanner that given the availability, slotsA and slotsB, of two people and a meeting duration dur, returns the earliest time slot that works for both of them and is of duration dur. If there is no common time slot that satisfies the duration requirement, return an empty array.
+
+# Time is given in a Unix format called Epoch, which is a nonnegative integer holding the number of seconds that have elapsed since 00:00:00 UTC, Thursday, 1 January 1970.
+
+# Each person’s availability is represented by an array of pairs. Each pair is an epoch array of size two. The first epoch in a pair represents the start time of a slot. The second epoch is the end time of that slot. The input variable dur is a positive integer that represents the duration of a meeting in seconds. The output is also a pair represented by an epoch array of size two.
+
+# In your implementation assume that the time slots in a person’s availability are disjointed, i.e, time slots in a person’s availability don’t overlap. Further assume that the slots are sorted by slots’ start time.
+
+# Implement an efficient solution and analyze its time and space complexities.
+
+# Examples:
+
+# input:  slotsA = [[10, 50], [60, 120], [140, 210]]
+#         slotsB = [[0, 15], [60, 70]]
+#         dur = 8
+# output: [60, 68]
+
+# input:  slotsA = [[10, 50], [60, 120], [140, 210]]
+#         slotsB = [[0, 15], [60, 70]]
+#         dur = 12
+# output: [] # since there is no common slot whose duration is 12
+# Constraints:
+
+# [time limit] 5000ms
+
+# [input] array.array.integer slotsA
+
+# 1 ≤ slotsA.length ≤ 100
+# slotsA[i].length = 2
+# [input] array.array.integer slotsB
+
+# 1 ≤ slotsB.length ≤ 100
+# slotsB[i].length = 2
+# [input] integer
+
+# [output] array.integer
+
+#I found a LeetCode problem that matches your description: "1229. Meeting Scheduler". It involves finding the earliest time slot that fits the meeting duration for two people given their available time slots. If no common time slot satisfies the duration requirement, it returns an empty array. The problem emphasizes sorting the slots and using two pointers to find the intersection of the available times that meet or exceed the specified duration. For more details, you can visit the problem page on LeetCode via this link.
+
+def time_planner(slotsA, slotsB, dur):
+    lenA = len(slotsA)
+    lenB = len(slotsB)
+    i = 0
+    j = 0
+    while i < lenA and j < lenB:
+        start = max(slotsA[i][0], slotsB[j][0])
+        end = min(slotsA[i][1], slotsB[j][1])
+        if end - start >= dur:
+            return [start, start+dur]
+        if slotsA[i][1] < slotsB[j][1]: # if A ends before B
+            i+=1
+        else: #if B ends before A
+            j+=1
+    return []
+
+print(time_planner(slotsA, slotsB, dur))
   
